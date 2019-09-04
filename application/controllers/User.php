@@ -23,13 +23,34 @@ class User extends CI_Controller {
         
         
 
-        $method = $_SERVER['REQUEST_METHOD'];
-		if($method != 'GET'){
+         $method = $_SERVER['REQUEST_METHOD'];
+		 if($method != 'GET'){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
-		} else {
-            $data = $this->db->query("SELECT * FROM user");
-            json_output(400,array('status' => 200,$data->result_array()) );
-        }
+		 } else {
+			$data = $this->db->query("SELECT * FROM user , tenant where user.tenant_code=tenant.tenant_code");
+			echo json_encode($data->result_array());
+		 }
+		
+  	
+
+
+
+	}
+
+	public function userm()
+	{
+        
+        
+
+         $method = $_SERVER['REQUEST_METHOD'];
+		 if($method != 'GET'){
+			json_output(400,array('status' => 400,'message' => 'Bad request.'));
+		 } else {
+			$data = $this->db->query("SELECT * FROM user ");
+			echo json_encode($data->result_array());
+		 }
+		
+  	
 
 
 

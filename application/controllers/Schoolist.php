@@ -25,8 +25,9 @@ class Schoolist extends CI_Controller {
 		if($method != 'GET'){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
 		} else {
-            $data = $this->db->query("SELECT * FROM schoolist");
-            json_output(400,array('status' => 200,$data->result_array()) );
+            $data = $this->db->query("SELECT * FROM schoolist s, tenant t where s.tenant_code=t.tenant_code");
+			//json_output(400,array('status' => 200,$data->result_array()) );
+			echo json_encode($data->result_array());
         }
 
 	}
