@@ -51,12 +51,38 @@ class User extends CI_Controller {
 
 	}
 
+
+	public function auth()
+	{
+        
+         $method = $_SERVER['REQUEST_METHOD'];
+		 if($method != 'POST'){
+			json_output(400,array('status' => 400,'message' => 'Bad request.'));
+		 } else {
+
+			$username=$this->input->post('username');
+			$password=$this->input->post('password');
+
+
+			$data = $this->db->query("SELECT * FROM user where username='$username'  and password='$password'");
+			//$data->row();
+			if($data->num_rows() > 0){
+				echo json_encode("success");
+			}else{
+				echo json_encode("failed");
+			}
+			
+		 }
+		
+
+	}
+
 	public function detail($id)
 	{
 		 
         $method = $_SERVER['REQUEST_METHOD'];
 		if($method != 'GET' || $this->uri->segment(3) == '' || is_numeric($this->uri->segment(3)) == FALSE){
-			json_output(200,array('status' => 400,'message' => 'Bad request.'));
+			json_output(400,array('status' => 400,'message' => 'Bad request.'));
 		} else {
             $data = $this->db->query("SELECT * FROM user where id_user='$id'");
 			echo json_encode($data->result_array());
@@ -73,8 +99,7 @@ class User extends CI_Controller {
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
 		} else {
           
-      //INSERT INTO `user` (`id_user`, `tenant_code`, `username`, `email_user`, `password`, `handphone_user`, `lastlogin`) VALUES (NULL, '$tenant_code', '$username', '$email', '$password', '$handphone', '$date');
-                $tenant_code=$this->input->post('tenant_code');
+            $tenant_code=$this->input->post('tenant_code');
                 $username=$this->input->post('username');
                 $email=$this->input->post('email');
                 $password=$this->input->post('password');
