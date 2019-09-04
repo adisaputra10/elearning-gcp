@@ -66,15 +66,19 @@ class Tenant extends CI_Controller {
                 $tenant_code=$this->input->post('tenant_code');
                 $tenant_name=$this->input->post('tenant_name');
                 $address=$this->input->post('address');
+                $city=$this->input->post('city');
                 $province=$this->input->post('province');
                 $postal_code=$this->input->post('postal_code');
                 $contact_person=$this->input->post('contact_person');
                 $phone=$this->input->post('phone');
-                $handphone=$this->input->post('handphone');
+                $handphone=$this->input->post('mobile');
                 $email=$this->input->post('email');
+            	//echo json_encode("success $email ");
 
+                $sql = "INSERT INTO `tenant` (`id_tenant`, `tenant_code`, `tenant_name`, `address`, `city`, `province`, `postal_code`, `contact_person`, `phone`, `email`, `aktif_date`) VALUES (NULL, '$tenant_code', '$tenant_name', '$address', '$city', '$province', '$postal_code', '$contact_person', ' $handphone', '$email', 'inactive')";
+                $this->db->query($sql);
+        	echo json_encode("success");
 
-            var_dump($tenant_code);
         }
 
     }
@@ -87,12 +91,9 @@ class Tenant extends CI_Controller {
 		if($method != 'DELETE' || $this->uri->segment(3) == '' || is_numeric($this->uri->segment(3)) == FALSE){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
 		} else {
-          
-            $data = $this->db->query("DELETE * FROM  tenant where id_tenant='$id'");
-            json_output(400,array('status' => 200,'message' => 'success'));
-
-
-            var_dump($tenant_code);
+            $this->db->query("DELETE  FROM  tenant where id_tenant='$id'");
+		    echo json_encode("success");
+            
         }
 
     }

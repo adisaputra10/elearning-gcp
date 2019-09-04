@@ -40,8 +40,6 @@ class User extends CI_Controller {
 	public function userm()
 	{
         
-        
-
          $method = $_SERVER['REQUEST_METHOD'];
 		 if($method != 'GET'){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
@@ -50,9 +48,6 @@ class User extends CI_Controller {
 			echo json_encode($data->result_array());
 		 }
 		
-  	
-
-
 
 	}
 
@@ -78,12 +73,18 @@ class User extends CI_Controller {
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
 		} else {
           
-      
+      //INSERT INTO `user` (`id_user`, `tenant_code`, `username`, `email_user`, `password`, `handphone_user`, `lastlogin`) VALUES (NULL, '$tenant_code', '$username', '$email', '$password', '$handphone', '$date');
                 $tenant_code=$this->input->post('tenant_code');
                 $username=$this->input->post('username');
-                $email=$this->input->post('$email');
-                $password=$this->input->post('$password');
-                $handphone=$this->input->post('$handphone');
+                $email=$this->input->post('email');
+                $password=$this->input->post('password');
+				$handphone=$this->input->post('mobile');
+				$date=date("Y-m-d h:i");
+				//echo json_encode("aaa $tenant_code $username");
+				
+
+				$data = $this->db->query("INSERT INTO `user` (`id_user`, `tenant_code`, `username`, `email_user`, `password`, `handphone_user`, `lastlogin`) VALUES (NULL, '$tenant_code', '$username', '$email', '$password', '$handphone', '$date') ");
+				echo json_encode("success");
             
  
         }
@@ -99,12 +100,9 @@ class User extends CI_Controller {
 		if($method != 'DELETE' || $this->uri->segment(3) == '' || is_numeric($this->uri->segment(3)) == FALSE){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
 		} else {
-          
-            $data = $this->db->query("DELETE * FROM  user where id_user='$id'");
-            json_output(400,array('status' => 200,'message' => 'success'));
-
-
-            var_dump($tenant_code);
+            $this->db->query("DELETE  FROM  user where id_user='$id'");
+		    echo json_encode("success");
+            
         }
 
     }

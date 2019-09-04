@@ -2,22 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Schoolist extends CI_Controller {
-
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+ 
 	public function index()
 	{
         
@@ -25,8 +10,7 @@ class Schoolist extends CI_Controller {
 		if($method != 'GET'){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
 		} else {
-            $data = $this->db->query("SELECT * FROM schoolist s, tenant t where s.tenant_code=t.tenant_code");
-			//json_output(400,array('status' => 200,$data->result_array()) );
+            $data = $this->db->query("SELECT distinct FROM schoolist s, tenant t where s.tenant_code=t.tenant_code");
 			echo json_encode($data->result_array());
         }
 
@@ -56,7 +40,14 @@ class Schoolist extends CI_Controller {
           
                 $tenant_code=$this->input->post('tenant_code');
                 $school_name=$this->input->post('school_name');
-                $headmaster=$this->input->post('headmaster');
+				$headmaster=$this->input->post('headmaster');
+				
+				$type=$this->input->post('typesch');
+
+
+				$address=$this->input->post('address');
+                
+
                 $city=$this->input->post('city');
                 $province=$this->input->post('province');
                 $postal_code=$this->input->post('postal_code');
@@ -64,7 +55,10 @@ class Schoolist extends CI_Controller {
                 $phone=$this->input->post('phone');
 				$handphone=$this->input->post('handphone');
 				$email=$this->input->post('email');
-            var_dump($tenant_code);
+
+				$sql="INSERT INTO `schoolist` (`id_schoolist`, `tenant_code`, `school_name`, `headmaster`, `address_sch`, `city_sch`, `province_sch`, `postal_code_sch`, `contact_person`, `phone_sch`, `handphone_sch`, `email_sch`, `type`, `aktif_date_sch`) VALUES (NULL, '$tenant_code', '$school_name', '$headmaster', '$address', '$city', '$province', '$postal_code', '$contact_person', '$phone', '$handphone', '$email', '$type', 'inactive');";
+				$this->db->query($sql);
+        		echo json_encode("success");
         }
 
 	}
@@ -73,16 +67,13 @@ class Schoolist extends CI_Controller {
 	public function delete($id)
 	{
 
-        $method = $_SERVER['REQUEST_METHOD'];
+		$method = $_SERVER['REQUEST_METHOD'];
 		if($method != 'DELETE' || $this->uri->segment(3) == '' || is_numeric($this->uri->segment(3)) == FALSE){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
 		} else {
-          
-            $data = $this->db->query("DELETE * FROM  schoolist where id_schoolist='$id'");
-            json_output(400,array('status' => 200,'message' => 'success'));
-
-
-            var_dump($tenant_code);
+            $this->db->query("DELETE  FROM  schoolist where id_schoolist='$id'");
+		    echo json_encode("success");
+            
         }
 
     }
