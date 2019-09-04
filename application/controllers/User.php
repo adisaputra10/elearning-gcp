@@ -54,7 +54,14 @@ class User extends CI_Controller {
 
 	public function auth()
 	{
-        
+		
+		
+		header('Content-type: application/json');
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET");
+        header("Access-Control-Allow-Methods: GET, OPTIONS");
+        header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
+
          $method = $_SERVER['REQUEST_METHOD'];
 		 if($method != 'POST'){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
