@@ -39,7 +39,8 @@ class User extends CI_Controller {
 
 	public function userm()
 	{
-        
+        header('Content-type: application/json');
+        header("Access-Control-Allow-Origin: *");
          $method = $_SERVER['REQUEST_METHOD'];
 		 if($method != 'GET'){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
