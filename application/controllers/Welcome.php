@@ -22,27 +22,7 @@ class Welcome extends CI_Controller {
 	{
 	 
 
-		$users = [
-            ['id' => 1, 'name' => 'John', 'email' => 'john@example.com', 'fact' => 'Loves coding'],
-            ['id' => 2, 'name' => 'Jim', 'email' => 'jim@example.com', 'fact' => 'Developed on CodeIgniter'],
-            ['id' => 3, 'name' => 'Jane', 'email' => 'jane@example.com', 'fact' => 'Lives in the USA', ['hobbies' => ['guitar', 'cycling']]],
-        ];
-		$method = $_SERVER['REQUEST_METHOD'];
-		//json_output(400,array('status' => 400,'message' => "hai ini Rest api dengan codeigniter") );
-
-		//$resp = $this->ElearningModel->elearning_all_data();
-		//var_dump($resp);
-
-		//json_output(400,array('status' => 400,$users) );
-		//$this->load->view('welcome_message');
-
-		$data = $this->db->query("SELECT * FROM tenant");
-		foreach ($data->result_array() as $mahasiswa) {
-			 echo "Nama : ".$mahasiswa['tenant_code']."<br/>";
-			 echo "Alamat : ".$mahasiswa['tenant_name']."<hr/>";
-		}
-
-
+		json_output(200,array('status' => 'Running') );
 
 
 
