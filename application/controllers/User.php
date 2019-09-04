@@ -22,7 +22,8 @@ class User extends CI_Controller {
 	{
         
         
-
+		header('Content-type: application/json');
+        header("Access-Control-Allow-Origin: *");
          $method = $_SERVER['REQUEST_METHOD'];
 		 if($method != 'GET'){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
@@ -87,7 +88,8 @@ class User extends CI_Controller {
 
 	public function detail($id)
 	{
-		 
+		header('Content-type: application/json');
+        header("Access-Control-Allow-Origin: *");
         $method = $_SERVER['REQUEST_METHOD'];
 		if($method != 'GET' || $this->uri->segment(3) == '' || is_numeric($this->uri->segment(3)) == FALSE){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
@@ -101,7 +103,8 @@ class User extends CI_Controller {
 
 	public function create()
 	{
-
+		header('Content-type: application/json');
+        header("Access-Control-Allow-Origin: *");
         $method = $_SERVER['REQUEST_METHOD'];
 		if($method != 'POST'){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
@@ -129,6 +132,8 @@ class User extends CI_Controller {
     public function delete($id)
 	{
 
+		header('Content-type: application/json');
+        header("Access-Control-Allow-Origin: *");
         $method = $_SERVER['REQUEST_METHOD'];
 		if($method != 'DELETE' || $this->uri->segment(3) == '' || is_numeric($this->uri->segment(3)) == FALSE){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
@@ -146,6 +151,8 @@ class User extends CI_Controller {
 	public function update($id)
 	{
 
+		header('Content-type: application/json');
+        header("Access-Control-Allow-Origin: *");
 		$method = $_SERVER['REQUEST_METHOD'];
 		if($method != 'PUT' || $this->uri->segment(3) == '' || is_numeric($this->uri->segment(3)) == FALSE){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
