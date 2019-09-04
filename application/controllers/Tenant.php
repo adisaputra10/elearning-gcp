@@ -46,7 +46,7 @@ class Tenant extends CI_Controller {
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
 		} else {
             $data = $this->db->query("SELECT * FROM tenant where id_tenant='$id'");
-            json_output(400,array('status' => 200,$data->result_array()   ) );
+            echo json_encode($data->result_array());
         }
 
     }

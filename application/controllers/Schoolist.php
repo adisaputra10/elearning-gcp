@@ -10,7 +10,7 @@ class Schoolist extends CI_Controller {
 		if($method != 'GET'){
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
 		} else {
-            $data = $this->db->query("SELECT distinct FROM schoolist s, tenant t where s.tenant_code=t.tenant_code");
+            $data = $this->db->query("SELECT distinct(id_schoolist), s.school_name, s.city_sch, s.address_sch, s.headmaster, s.type , t.tenant_name, s.aktif_date_sch   FROM schoolist s, tenant t where s.tenant_code=t.tenant_code");
 			echo json_encode($data->result_array());
         }
 
@@ -24,7 +24,7 @@ class Schoolist extends CI_Controller {
 			json_output(400,array('status' => 400,'message' => 'Bad request.'));
 		} else {
             $data = $this->db->query("SELECT * FROM schoolist where id_schoolist='$id'");
-            json_output(400,array('status' => 200,$data->result_array()) );
+			echo json_encode($data->result_array());
         }
 
 	}

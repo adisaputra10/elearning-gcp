@@ -56,10 +56,10 @@ class User extends CI_Controller {
 		 
         $method = $_SERVER['REQUEST_METHOD'];
 		if($method != 'GET' || $this->uri->segment(3) == '' || is_numeric($this->uri->segment(3)) == FALSE){
-			json_output(400,array('status' => 400,'message' => 'Bad request.'));
+			json_output(200,array('status' => 400,'message' => 'Bad request.'));
 		} else {
             $data = $this->db->query("SELECT * FROM user where id_user='$id'");
-            json_output(400,array('status' => 200,$data->result_array()) );
+			echo json_encode($data->result_array());
         }
 
     }
